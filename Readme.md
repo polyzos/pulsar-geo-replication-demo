@@ -1,14 +1,23 @@
-```shell
-docker run -p 61616:61616 -p 8161:8161 rmohr/activemq
-```
+Pulsar Geo-Replication and ActiveMQ Migration
+---------------------------------------------
+The purpose of this repository is 2-fold:
+1. Demonstrate how we can migrate our data from ActiveMQ to Pulsar
+2. Demonstrate how we can provide Disaster Recovery solutions using Geo-Replication:
+   - [x] Demonstrate using multiple pulsar cluster on the same k8s cluster
+   - [x] Demonstrate using multiple pulsar cluster on different k8s clusters
+   - [x] How we can seemlessy fallback to another cluster if we lose a regional cluster
 
-```shell
-docker run -it -p 6650:6650 \
-  -p 8080:8080 \
-  --name pulsar apachepulsar/pulsar:2.9.1 \
-  bin/pulsar standalone
-```
-1. List eu-central cluster
+You can find instructions to test geo-replication both with open-source pulsar as well as the SN Platform
+
+Folders
+-------
+1. `jars` contains the activemq connector nar
+2. `/infra` contains terraform resources for setting up the necessary pulsar components easily on the different clusters
+3. `/k8s` contains k8s manifests for deploying ActiveMQ on kubernetes as well as manifest for deploying pulsar and the sn platform
+
+Setup & Instructions
+--------------------
+1. List eu-central EKS clusters
 ```shell
 aws eks list-clusters --region eu-central-1
 ```
@@ -16,7 +25,7 @@ aws eks list-clusters --region eu-central-1
 3. Set kubeconfig
 ```shell
 aws eks --region eu-central-1 update-kubeconfig \
-  --name sn-reptile-dev-eu-central-1
+  --name <cluster_name>
 ```
 4. Create a namespace
 ```shell
