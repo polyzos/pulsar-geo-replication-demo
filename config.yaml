@@ -1,0 +1,13 @@
+tenant: "public"
+namespace: "default"
+name: "activemq-source"
+topicName: "amqp_topic"
+parallelism: 1
+
+configs:
+  protocol: "tcp"
+  host: "active-mq"
+  port: "61616"
+  username: "admin"
+  password: "admin"
+  queueName: "test_queue"

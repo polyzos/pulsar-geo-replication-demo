@@ -1,0 +1,35 @@
+namespace: pulsar
+
+volumes:
+  persistence: false
+
+affinity:
+  anti_affinity: false
+
+components:
+  autorecovery: false
+
+zookeeper:
+  replicaCount: 1
+
+bookkeeper:
+  replicaCount: 1
+
+broker:
+  replicaCount: 1
+  configData:
+    autoSkipNonRecoverableData: "true"
+
+    managedLedgerDefaultEnsembleSize: "1"
+    managedLedgerDefaultWriteQuorum: "1"
+    managedLedgerDefaultAckQuorum: "1"
+
+proxy:
+  replicaCount: 1
+
+monitoring:
+  prometheus: false
+  grafana: false
+  node_exporter: false
+  alert_manager: false
+  loki: false
